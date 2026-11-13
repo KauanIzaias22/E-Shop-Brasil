@@ -1,0 +1,20 @@
+
+services:
+  mongodb:
+    image: mongo:7
+    container_name: eshop-mongodb
+    restart: unless-stopped
+    volumes:
+      - mongo_data:/data/db
+
+  app:
+    build: .
+    container_name: eshop-streamlit
+    restart: unless-stopped
+    ports:
+      - "8501:8501"
+    depends_on:
+      - mongodb
+
+volumes:
+  mongo_data:
